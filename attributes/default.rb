@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-default['vagrant']['url'] = 'http://files.vagrantup.com/packages/7e400d00a3c5a0fdf2809c8b5001a035415a607b/vagrant_1.2.2_x86_64.deb'
-default['vagrant']['checksum'] = 'd3035d259a28bd7090ef00629e61cc0520778143fad06f49adb3c45a75fb1425'
+default['vagrant']['url'] = 'https://dl.bintray.com/mitchellh/vagrant/vagrant_1.4.3_x86_64.deb'
+default['vagrant']['checksum'] = 'dbd06de0f3560e2d046448d627bca0cbb0ee34b036ef605aa87ed20e6ad2684b'
 
-default['kitchen']['gem_version'] = '1.0.0.alpha.6'
+default['kitchen']['gem_version'] = '1.2.1'

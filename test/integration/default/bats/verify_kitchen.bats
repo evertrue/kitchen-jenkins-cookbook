@@ -3,12 +3,10 @@
 }
 
 @test "kitchen is executable" {
-	export PATH=/var/lib/gems/1.9.1/bin:$PATH
 	which kitchen
 }
 
 @test "foodcritic is executable" {
-	export PATH=/var/lib/gems/1.9.1/bin:$PATH
 	which foodcritic
 }
 
@@ -16,6 +14,10 @@
 	which git
 }
 
-@test "the jenkins user has the vagrant-berkshelf plugin installed" {
-	grep vagrant-berkshelf ~jenkins/.vagrant.d/plugins.json
+@test "berkshelf is executable" {
+	which berkshelf
+}
+
+@test "chefspec is executable" {
+	which chefspec
 }
