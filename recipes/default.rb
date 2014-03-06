@@ -27,9 +27,32 @@ include_recipe "jenkins::master"
 jenkins_data = node['jenkins']['master']
 jenkins_vagrant = ::File.join(jenkins_data[:home], ".vagrant.d")
 
+%w{
+  parameterized-trigger
+  git-client
+  token-macro
+  credentials
+  multiple-scms
+  scm-api
+  ssh-credentials
+  promoted-builds
+  git
+}.each do |plugin|
+  jenkins_plugin plugin
+end
 
+%w{
+  github
+  github-api
+  ghprb
+}.each do |plugin|
+  jenkins_plugin plugin
+end
+
+include_recipe "rbenv::system_install"
 include_recipe "ruby_build"
-ruby_build_ruby "2.1.0"
+rbenv_ruby "2.1.0"
+rbenv_global "2.1.0"
 
 # This works on Debian 7 and Ubuntu 12.04
 [ "build-essential",
@@ -39,7 +62,7 @@ ruby_build_ruby "2.1.0"
   package pkg
 end
 
-gem_package "test-kitchen" do
+rbenv_gem "test-kitchen" do
   version node['kitchen']['gem_version']
 end
 
@@ -47,10 +70,12 @@ end
   foodcritic
   kitchen-vagrant
   bundler
-  rake
   chefspec
 }.each do |gem|
+  rbenv_gem gem
+end
 
-  gem_package gem
-
+rbenv_gem "berkshelf" do
+  version "3.0.0.beta7"
+  options "--pre"
 end

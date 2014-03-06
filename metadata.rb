@@ -9,6 +9,7 @@ depends "virtualbox", ">= 1.0.0"
 depends "vagrant", ">= 0.2.0"
 depends "virtualbox"
 depends "jenkins", ">= 2.0.0"
+depends "rbenv"
 depends "ruby_build"
 
 supports "debian"
