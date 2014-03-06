@@ -71,6 +71,7 @@ end
   kitchen-vagrant
   bundler
   chefspec
+  knife-spork
 }.each do |gem|
   rbenv_gem gem
 end
