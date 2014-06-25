@@ -73,11 +73,7 @@ end
   bundler
   chefspec
   knife-spork
+  berkshelf
 ).each do |gem|
   rbenv_gem gem
-end
-
-rbenv_gem 'berkshelf' do
-  version '3.0.0.beta7'
-  options '--pre'
 end
