@@ -17,17 +17,16 @@
 # limitations under the License.
 #
 
-include_recipe "virtualbox"
-include_recipe "vagrant"
+include_recipe 'virtualbox'
+include_recipe 'vagrant'
 
-include_recipe "jenkins::java"
-include_recipe "jenkins::master"
-
+include_recipe 'jenkins::java'
+include_recipe 'jenkins::master'
 
 jenkins_data = node['jenkins']['master']
-jenkins_vagrant = ::File.join(jenkins_data[:home], ".vagrant.d")
+jenkins_vagrant = ::File.join(jenkins_data[:home], '.vagrant.d')
 
-%w{
+%w(
   parameterized-trigger
   git-client
   token-macro
@@ -37,46 +36,48 @@ jenkins_vagrant = ::File.join(jenkins_data[:home], ".vagrant.d")
   ssh-credentials
   promoted-builds
   git
-}.each do |plugin|
+).each do |plugin|
   jenkins_plugin plugin
 end
 
-%w{
+%w(
   github
   github-api
   ghprb
-}.each do |plugin|
+).each do |plugin|
   jenkins_plugin plugin
 end
 
-include_recipe "rbenv::system_install"
-include_recipe "ruby_build"
-rbenv_ruby "2.1.0"
-rbenv_global "2.1.0"
+include_recipe 'rbenv::system_install'
+include_recipe 'ruby_build'
+rbenv_ruby '2.1.0'
+rbenv_global '2.1.0'
 
 # This works on Debian 7 and Ubuntu 12.04
-[ "build-essential",
-  "libxml2-dev",
-  "libxslt-dev",
-  "git-core" ].each do |pkg|
+%w(
+  build-essential
+  libxml2-dev
+  libxslt-dev
+  git-core
+).each do |pkg|
   package pkg
 end
 
-rbenv_gem "test-kitchen" do
+rbenv_gem 'test-kitchen' do
   version node['kitchen']['gem_version']
 end
 
-%w{
+%w(
   foodcritic
   kitchen-vagrant
   bundler
   chefspec
   knife-spork
-}.each do |gem|
+).each do |gem|
   rbenv_gem gem
 end
 
-rbenv_gem "berkshelf" do
-  version "3.0.0.beta7"
-  options "--pre"
+rbenv_gem 'berkshelf' do
+  version '3.0.0.beta7'
+  options '--pre'
 end
