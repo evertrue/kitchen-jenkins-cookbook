@@ -11,5 +11,4 @@ depends 'jenkins',    '~> 2.1'
 depends 'rbenv'
 depends 'ruby_build'
 
-supports 'debian'
 supports 'ubuntu'

@@ -11,7 +11,6 @@ Tested on Chef 11. See TESTING.md.
 
 ## Platform
 
-* Debian (6.0.7, 7.0)
 * Ubuntu (12.04)
 
 ## Cookbooks

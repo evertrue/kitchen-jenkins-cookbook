@@ -53,7 +53,7 @@ include_recipe 'ruby_build'
 rbenv_ruby '2.1.0'
 rbenv_global '2.1.0'
 
-# This works on Debian 7 and Ubuntu 12.04
+# This works on Ubuntu 12.04
 %w(
   build-essential
   libxml2-dev
