@@ -17,7 +17,41 @@
 # limitations under the License.
 #
 
-default['vagrant']['url'] = 'https://dl.bintray.com/mitchellh/vagrant/vagrant_1.4.3_x86_64.deb'
-default['vagrant']['checksum'] = 'dbd06de0f3560e2d046448d627bca0cbb0ee34b036ef605aa87ed20e6ad2684b'
-
 default['kitchen']['gem_version'] = '1.2.1'
+default['kitchen']['chef_dk']['url'] = 'https://opscode-omnibus-packages.s3.amazonaws.com' \
+                                       '/ubuntu/12.04/x86_64'
+default['kitchen']['chef_dk']['pkg'] = 'chefdk_0.1.0-1_amd64.deb'
+set['jenkins']['plugins']['install'] = %w(
+  credentials
+  downstream-buildview
+  downstream-ext
+  ghprb
+  git
+  git-client
+  git-parameter
+  github
+  github-api
+  gradle
+  greenballs
+  jquery
+  jquery-ui
+  multiple-scms
+  notification
+  parameterized-trigger
+  promoted-builds
+  publish-over-ssh
+  rake
+  rbenv
+  rebuild
+  ruby
+  ruby-runtime
+  rubyMetrics
+  scm-api
+  ssh-credentials
+  terminal
+  token-macro
+)
+set['jenkins']['plugins']['disable'] = %w(
+  cvs
+  subversion
+)

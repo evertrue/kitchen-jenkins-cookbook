@@ -17,41 +17,18 @@
 # limitations under the License.
 #
 
-include_recipe 'virtualbox'
-include_recipe 'vagrant'
-
 include_recipe 'jenkins::java'
 include_recipe 'jenkins::master'
 
-jenkins_data = node['jenkins']['master']
-jenkins_vagrant = ::File.join(jenkins_data[:home], '.vagrant.d')
-
-%w(
-  parameterized-trigger
-  git-client
-  token-macro
-  credentials
-  multiple-scms
-  scm-api
-  ssh-credentials
-  promoted-builds
-  git
-).each do |plugin|
+node['jenkins']['plugins']['install'].each do |plugin|
   jenkins_plugin plugin
 end
 
-%w(
-  github
-  github-api
-  ghprb
-).each do |plugin|
-  jenkins_plugin plugin
+node['jenkins']['plugins']['disable'].each do |plugin|
+  jenkins_plugin plugin do
+    action :disable
+  end
 end
-
-include_recipe 'rbenv::system_install'
-include_recipe 'ruby_build'
-rbenv_ruby '2.1.0'
-rbenv_global '2.1.0'
 
 # This works on Ubuntu 12.04
 %w(
@@ -63,17 +40,12 @@ rbenv_global '2.1.0'
   package pkg
 end
 
-rbenv_gem 'test-kitchen' do
-  version node['kitchen']['gem_version']
+remote_file "#{Chef::Config[:file_cache_path]}/#{node['kitchen']['chef_dk']['pkg']}" do
+  source "#{node['kitchen']['chef_dk']['url']}/#{node['kitchen']['chef_dk']['pkg']}"
+  mode 0644
 end
 
-%w(
-  foodcritic
-  kitchen-vagrant
-  bundler
-  chefspec
-  knife-spork
-  berkshelf
-).each do |gem|
-  rbenv_gem gem
+dpkg_package 'chefdk' do
+  source "#{Chef::Config[:file_cache_path]}/#{node['kitchen']['chef_dk']['pkg']}"
+  action :install
 end
