@@ -15,7 +15,7 @@
 }
 
 @test "berkshelf is executable" {
-	which berkshelf
+	which berks
 }
 
 @test "chefspec is executable" {
